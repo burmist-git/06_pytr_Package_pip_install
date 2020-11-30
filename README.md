@@ -4,11 +4,8 @@
 ===================
 
     ├── data                     < data folder
-    │
     ├── LICENSE                  < LICENSE (GNU)
-    │
     ├── Makefile                 < make file for file managing/cleaning
-    │
     ├── pkgttest                 < test package
     │   │
     │   ├── ect                  < config folder
@@ -17,19 +14,19 @@
     │   │
     │   ├── __init__.py          < package file
     │   │
- │   ├── module01.py          < test module of the package
- │   │
- │   ├── module02_class.py    < test class module of the package
- │   │
- │   └── runTest.py           < modules test script
- │
- │── test.py                  < package test script
- │
- ├── pkgttest.yml             < pkgttest yml file
- │
- ├── README.md                < this file
- │
- └── setup.py                 < file for pip install
+    │   ├── module01.py          < test module of the package
+    │   │
+    │   ├── module02_class.py    < test class module of the package
+    │   │
+    │   └── runTest.py           < modules test script
+    │
+    │── test.py                  < package test script
+    │
+    ├── pkgttest.yml             < pkgttest yml file
+    │
+    ├── README.md                < this file
+    │
+    └── setup.py                 < file for pip install
 
 ## commands
 
