@@ -21,4 +21,5 @@
 ## commands
 
 pip install -e .
+
 pip uninstall pkgttest
