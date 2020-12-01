@@ -19,6 +19,10 @@ installpkgttest:
 uninstallpkgttest:
 	pip uninstall -y pkgttest
 
+## remove env pkgttest
+rmenvpkgttest:
+	conda env remove -n pkgttest
+
 ## Print info test
 printinfo:
 	@echo ${MAKEFILE_LIST}
