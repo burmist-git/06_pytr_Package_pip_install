@@ -1,18 +1,23 @@
+
 ########################################################################
 # Date        : Thu Nov 26 18:04:31 CET 2020                           #
 # Autor       : Leonid Burmistrov                                      #
 # Description :                                                        #
 ########################################################################
 
-.PHONY: printhelp printinfo git clean
+.PHONY: printhelp printinfo installpkgttest uninstallpkgttest clean
 
 ## Set up python interpreter environment
 environment:
-	conda env create -f environment.yml
+	conda env create -f pkgttestenv.yml
 
-## git initialization
-git:
-	git init
+## install pkgttest
+installpkgttest:
+	pip install -e .
+
+## uninstall pkgttest
+uninstallpkgttest:
+	pip uninstall -y pkgttest
 
 ## Print info test
 printinfo:
@@ -22,10 +27,13 @@ printinfo:
 clean:
 	rm -f *~
 	rm -f .*~
-	rm -f ./pkgttest/.*~
-	rm -f ./pkgttest/*~
-	rm -rf ./pkgttest/__pycache__
+	rm -f */*~
+	rm -f */.*~
 	rm -rf pkgttest.egg-info
+	rm -rf .ipynb_checkpoints/
+	rm -rf ./pkgttest/.ipynb_checkpoints/
+	rm -rf ./pkgttest/__pycache__
+	rm -rf ./outdir/.ipynb_checkpoints/
 
 ########################################################################
 # Self Documenting Commands                                            #
