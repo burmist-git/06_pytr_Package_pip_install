@@ -15,7 +15,7 @@ def read(fname):
 
 setup(
     name="pkgttest",
-    version="1.0.0",
+    version="xx.xx.xx",
     description="Simple reminder-training example : package pip install",
     author="Leonid Burmistrov",
     packages=find_packages(exclude=['data','example-project']),

@@ -1,31 +1,47 @@
+PYTHONSETUPFILE=setup.py
+PKGNAME := $(shell grep 'name=' ${PYTHONSETUPFILE} | sed 's/,//'| sed 's/name=//' | sed 's/"//g' | sed 's/ //g')
+PKGVERSION := $(shell grep 'version=' ${PYTHONSETUPFILE} | sed 's/,//'| sed 's/version=//' | sed 's/"//g' | sed 's/ //g')
+CONDAENVNAME=${PKGNAME}
+CONDAENVYML=${PKGNAME}_env.yml
 
-########################################################################
-# Date        : Thu Nov 26 18:04:31 CET 2020                           #
-# Autor       : Leonid Burmistrov                                      #
-# Description :                                                        #
-########################################################################
+.PHONY: printhelp printinfo installdevpkgttest uninstallpkgttest clean
 
-.PHONY: printhelp printinfo installpkgttest uninstallpkgttest clean
+## Set up python interpreter environment via conda
+environmentsetup:
+	./Makefile_sh.sh --condaenv ${CONDAENVNAME}
 
 ## Set up python interpreter environment
-environment:
-	conda env create -f pkgttestenv.yml
+environmentsetupyml:
+	conda env create -f ${CONDAENVYML}
 
-## install pkgttest
-installpkgttest:
+## Export packages list to yml file
+exportpkglist:
+	./Makefile_sh.sh --exportenv ${CONDAENVYML}
+
+## Install package (development stage)
+installdevpkg:
 	pip install -e .
 
-## uninstall pkgttest
-uninstallpkgttest:
-	pip uninstall -y pkgttest
+## install package release
+installpkg:
+	pip install .
 
-## remove env pkgttest
-rmenvpkgttest:
-	conda env remove -n pkgttest
+## uninstall package
+uninstallpkg:
+	pip uninstall -y ${PKGNAME}
+
+## remove env package
+rmenvpkg:
+	./Makefile_sh.sh --condaenvrm ${CONDAENVNAME}
 
 ## Print info test
 printinfo:
-	@echo ${MAKEFILE_LIST}
+	@echo MAKEFILE_LIST = ${MAKEFILE_LIST}
+	@echo PYTHONSETUPFILE = ${PYTHONSETUPFILE}
+	@echo PKGNAME = ${PKGNAME}
+	@echo PKGVERSION = ${PKGVERSION}
+	@echo CONDAENVNAME = ${CONDAENVNAME}
+	@echo CONDAENVYML = ${CONDAENVYML}
 
 ## Clean the folders from unused files and others (created by python) 
 clean:
@@ -33,11 +49,10 @@ clean:
 	rm -f .*~
 	rm -f */*~
 	rm -f */.*~
-	rm -rf pkgttest.egg-info
+	rm -rf ${PKGNAME}.egg-info
 	rm -rf .ipynb_checkpoints/
-	rm -rf ./pkgttest/.ipynb_checkpoints/
-	rm -rf ./pkgttest/__pycache__
-	rm -rf ./outdir/.ipynb_checkpoints/
+	rm -rf ./${PKGNAME}/.ipynb_checkpoints
+	rm -rf ./${PKGNAME}/__pycache__
 
 ########################################################################
 # Self Documenting Commands                                            #
