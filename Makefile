@@ -1,8 +1,8 @@
 PYTHONSETUPFILE=setup.py
 PKGNAME := $(shell grep 'name=' ${PYTHONSETUPFILE} | sed 's/,//'| sed 's/name=//' | sed 's/"//g' | sed 's/ //g')
 PKGVERSION := $(shell grep 'version=' ${PYTHONSETUPFILE} | sed 's/,//'| sed 's/version=//' | sed 's/"//g' | sed 's/ //g')
-CONDAENVNAME=${PKGNAME}
-CONDAENVYML=${PKGNAME}_env.yml
+CONDAENVNAME=pkgttest
+CONDAENVYML=${CONDAENVNAME}_env.yml
 
 .PHONY: printhelp printinfo installdevpkgttest uninstallpkgttest clean
 
@@ -18,21 +18,18 @@ environmentsetupyml:
 exportpkglist:
 	./Makefile_sh.sh --exportenv ${CONDAENVYML}
 
-## Install package (development stage)
-installdevpkg:
-	pip install -e .
+## remove conda environment
+rmenv:
+	./Makefile_sh.sh --condaenvrm ${PKGNAME}
 
-## install package release
+## pip install package
 installpkg:
-	pip install .
+	./Makefile_sh.sh --pipinstall ${PKGNAME} ${PKGVERSION}
 
-## uninstall package
+## pip uninstall package
 uninstallpkg:
 	pip uninstall -y ${PKGNAME}
-
-## remove env package
-rmenvpkg:
-	./Makefile_sh.sh --condaenvrm ${CONDAENVNAME}
+	@conda list | grep ${PKGNAME}
 
 ## Print info test
 printinfo:

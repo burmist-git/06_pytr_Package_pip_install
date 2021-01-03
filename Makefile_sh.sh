@@ -30,6 +30,22 @@ function rm_conda_env_sh {
     fi
 }
 
+function pipinstall_sh {
+    pkgName=$1
+    pkgVersion=$2
+    wcl=$(echo $pkgVersion | grep -i x | wc -l)
+    if [ $wcl = 0 ]; then
+	echo "pkgName = $pkgName"
+	echo "pkgVersion = $pkgVersion"
+	pip install .
+    else
+	echo "pkgName = $pkgName"
+	echo "pkgVersion = $pkgVersion"
+	pip install -e .
+    fi
+    conda list | grep $pkgName 
+}
+
 # Libraries to be added
 function install_packages_sh {
     condaEvnName=$1
@@ -63,6 +79,9 @@ function printHelp {
     echo "        [1]   : environment name"
     echo " --exportenv  : export env into yml file"
     echo "        [1]   : yml file name"
+    echo " --pipinstall : pip install python package"
+    echo "        [1]   : package name"
+    echo "        [2]   : package version"
     echo " --install    : install conda packages"
     echo "        [1]   : environment name"
 }
@@ -87,6 +106,12 @@ else
     elif [ "$1" = "--exportenv" ]; then
 	if [ $# -eq 2 ]; then
 	    export_yml_env_sh $2
+	else
+	    printHelp
+	fi
+    elif [ "$1" = "--pipinstall" ]; then
+	if [ $# -eq 3 ]; then
+	    pipinstall_sh $2 $3
 	else
 	    printHelp
 	fi
