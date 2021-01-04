@@ -8,7 +8,7 @@ CONDAENVYML=${CONDAENVNAME}_env.yml
 
 ## Set up python interpreter environment via conda
 environmentsetup:
-	./Makefile_sh.sh --condaenv ${CONDAENVNAME}
+	./MakefileHelper.sh --condaenv ${CONDAENVNAME}
 
 ## Set up python interpreter environment
 environmentsetupyml:
@@ -16,15 +16,15 @@ environmentsetupyml:
 
 ## Export packages list to yml file
 exportpkglist:
-	./Makefile_sh.sh --exportenv ${CONDAENVYML}
+	./MakefileHelper.sh --exportenv ${CONDAENVYML}
 
 ## remove conda environment
 rmenv:
-	./Makefile_sh.sh --condaenvrm ${CONDAENVNAME}
+	./MakefileHelper.sh --condaenvrm ${CONDAENVNAME}
 
 ## pip install package
 installpkg:
-	./Makefile_sh.sh --pipinstall ${PKGNAME} ${PKGVERSION}
+	./MakefileHelper.sh --pipinstall ${PKGNAME} ${PKGVERSION}
 
 ## pip uninstall package
 uninstallpkg:
