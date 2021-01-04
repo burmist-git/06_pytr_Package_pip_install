@@ -29,7 +29,7 @@ installpkg:
 ## pip uninstall package
 uninstallpkg:
 	pip uninstall -y ${PKGNAME}
-	@echo conda list | grep ${PKGNAME} | wc -l
+	@echo conda list | grep -i ${PKGNAME} | wc -l
 
 ## Print info test
 printinfo:

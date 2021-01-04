@@ -10,12 +10,12 @@ function create_conda_env_sh {
     wcl=$(conda env list | grep $condaEvnName | wc -l)
     if [ $wcl = 0 ]; then
 	conda create --name $condaEvnName -y numpy pandas matplotlib notebook
-	conda env list | grep $condaEvnName
+	conda env list | grep -i $condaEvnName
 	echo " "
-	echo "> conda activate $condaEvnName"
+	echo "> conda activate -i $condaEvnName"
     else
-        conda env list | grep $condaEvnName
-        echo "> conda activate $condaEvnName"
+        conda env list | grep -i $condaEvnName
+        echo "> conda activate -i $condaEvnName"
     fi
 }
 
@@ -43,13 +43,13 @@ function pipinstall_sh {
 	echo "pkgVersion = $pkgVersion"
 	pip install -e .
     fi
-    conda list | grep $pkgName 
+    conda list | grep -i $pkgName 
 }
 
 # Libraries to be added
 function install_packages_sh {
     condaEvnName=$1
-    wcl=$(conda env list | grep $condaEvnName | wc -l)
+    wcl=$(conda env list | grep -i $condaEvnName | wc -l)
     if [ $wcl = 0 ]; then
 	echo "install_packages_sh"
 	# pandas-profiling
@@ -65,8 +65,8 @@ function install_packages_sh {
 	#echo "installing --> plotly=4.13.0"
 	#conda install -y plotly=4.13.0    
     else
-        conda env list | grep $condaEvnName
-        echo "> conda activate $condaEvnName"
+        conda env list | grep -i $condaEvnName
+        echo "> conda activate -i $condaEvnName"
     fi
 }
 
