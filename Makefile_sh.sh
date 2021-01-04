@@ -12,10 +12,10 @@ function create_conda_env_sh {
 	conda create --name $condaEvnName -y numpy pandas matplotlib notebook
 	conda env list | grep -i $condaEvnName
 	echo " "
-	echo "> conda activate -i $condaEvnName"
+	echo "> conda activate $condaEvnName"
     else
         conda env list | grep -i $condaEvnName
-        echo "> conda activate -i $condaEvnName"
+        echo "> conda activate $condaEvnName"
     fi
 }
 
@@ -66,7 +66,7 @@ function install_packages_sh {
 	#conda install -y plotly=4.13.0    
     else
         conda env list | grep -i $condaEvnName
-        echo "> conda activate -i $condaEvnName"
+        echo "> conda activate $condaEvnName"
     fi
 }
 
