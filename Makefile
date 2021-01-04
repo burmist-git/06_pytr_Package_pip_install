@@ -4,7 +4,7 @@ PKGVERSION := $(shell grep 'version=' ${PYTHONSETUPFILE} | sed 's/,//'| sed 's/v
 CONDAENVNAME=pkgttest
 CONDAENVYML=${CONDAENVNAME}_env.yml
 
-.PHONY:  environmentsetup environmentsetupyml exportpkglist rmenv installpkg uninstallpkg printinfo clean printhelp
+.PHONY: environmentsetup environmentsetupyml exportpkglist rmenv installpkg uninstallpkg printinfo clean printhelp
 
 ## Set up python interpreter environment via conda
 environmentsetup:
@@ -20,7 +20,7 @@ exportpkglist:
 
 ## remove conda environment
 rmenv:
-	./Makefile_sh.sh --condaenvrm ${PKGNAME}
+	./Makefile_sh.sh --condaenvrm ${CONDAENVNAME}
 
 ## pip install package
 installpkg:
@@ -29,7 +29,7 @@ installpkg:
 ## pip uninstall package
 uninstallpkg:
 	pip uninstall -y ${PKGNAME}
-	@conda list | grep ${PKGNAME}
+	@echo conda list | grep ${PKGNAME} | wc -l
 
 ## Print info test
 printinfo:
